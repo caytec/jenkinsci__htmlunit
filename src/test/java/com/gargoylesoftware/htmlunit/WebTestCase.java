@@ -30,6 +30,7 @@ import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -460,7 +461,7 @@ public abstract class WebTestCase {
                 LOG.info("No test generated: currently only content with a <head> and a </body> is supported");
             }
 
-            final File f = File.createTempFile("TEST" + '_', ".html");
+            final File f = Files.createTempFile("TEST" + '_', ".html").toFile();
             FileUtils.writeStringToFile(f, newContent, "ISO-8859-1");
             LOG.info("Test file written: " + f.getAbsolutePath());
         }

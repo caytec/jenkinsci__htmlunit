@@ -32,6 +32,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -797,7 +798,7 @@ public class WebClientTest extends WebServerTestCase {
 
         final String htmlContent = "<html><head><title>foo</title></head><body></body></html>";
         final File currentDirectory = new File((new File("")).getAbsolutePath());
-        final File tmpFile = File.createTempFile("test", ".html", currentDirectory);
+        final File tmpFile = Files.createTempFile(currentDirectory.toPath(), "test", ".html").toFile();
         tmpFile.deleteOnExit();
         final String encoding = (new OutputStreamWriter(new ByteArrayOutputStream())).getEncoding();
         FileUtils.writeStringToFile(tmpFile, htmlContent, encoding);
@@ -851,7 +852,7 @@ public class WebClientTest extends WebServerTestCase {
             + "</table>\n"
             + "</dataset>";
         final File currentDirectory = new File((new File("")).getAbsolutePath());
-        final File tmpFile = File.createTempFile("test", ".xml", currentDirectory);
+        final File tmpFile = Files.createTempFile(currentDirectory.toPath(), "test", ".xml").toFile();
         tmpFile.deleteOnExit();
         final String encoding = (new OutputStreamWriter(new ByteArrayOutputStream())).getEncoding();
         FileUtils.writeStringToFile(tmpFile, xmlContent, encoding);
@@ -1552,7 +1553,7 @@ public class WebClientTest extends WebServerTestCase {
         final String encoding = (new OutputStreamWriter(new ByteArrayOutputStream())).getEncoding();
 
         // JavaScript file
-        final File tmpFileJS = File.createTempFile("test", ".js", currentDirectory);
+        final File tmpFileJS = Files.createTempFile(currentDirectory.toPath(), "test", ".js").toFile();
         tmpFileJS.deleteOnExit();
         FileUtils.writeStringToFile(tmpFileJS, "alert('foo')", encoding);
 
@@ -1560,7 +1561,7 @@ public class WebClientTest extends WebServerTestCase {
         final String html = "<html><head></head><body>\n"
             + "<script language='javascript' type='text/javascript' src='" + tmpFileJS.getName() + "'></script>\n"
             + "</body></html>";
-        final File tmpFile = File.createTempFile("test", ".html", currentDirectory);
+        final File tmpFile = Files.createTempFile(currentDirectory.toPath(), "test", ".html").toFile();
         tmpFile.deleteOnExit();
         FileUtils.writeStringToFile(tmpFile, html, encoding);
 

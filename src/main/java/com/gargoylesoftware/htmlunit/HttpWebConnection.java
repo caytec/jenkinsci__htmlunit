@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -450,7 +451,7 @@ public class HttpWebConnection implements WebConnection {
                 bos.write(buffer, 0, nbRead);
                 if (bos.size() > MAX_IN_MEMORY) {
                     // we have exceeded the max for memory, let's write everything to a temporary file
-                    final File file = File.createTempFile("htmlunit", ".tmp");
+                    final File file = Files.createTempFile("htmlunit", ".tmp").toFile();
                     file.deleteOnExit();
                     final FileOutputStream fos = new FileOutputStream(file);
                     bos.writeTo(fos); // what we have already read

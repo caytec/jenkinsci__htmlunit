@@ -17,6 +17,7 @@ package com.gargoylesoftware.htmlunit.html.applets;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -92,7 +93,7 @@ public class AppletClassLoader extends ClassLoader {
     }
 
     private void readClassesFromJar(final WebResponse webResponse) throws IOException {
-        final File tmpFile = File.createTempFile("HtmlUnit", "jar");
+        final File tmpFile = Files.createTempFile("HtmlUnit", "jar").toFile();
         tmpFile.deleteOnExit();
         FileUtils.writeByteArrayToFile(tmpFile, webResponse.getContentAsBytes());
         final JarFile jarFile = new JarFile(tmpFile);
